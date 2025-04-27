@@ -1,147 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Chitti Calculator</title>
-	<meta property="og:title" content="Chitti Calculator">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-		.main {
-			margin: 16px auto;
-			box-sizing: border-box;
-			max-width: 500px;
-		}
-		.main h2 {
-			text-align: center;
-		}
-		.box {
-			padding: 5px 10px;
-			box-sizing: border-box;
-			width: 100%;
-			box-shadow: 0 0 5px 2px #ccc;
-			border-radius: 5px;
-		}
-		.num_field {
-			margin: 10px 0;
-			width: 100%;
-			box-sizing: border-box;
-		}
-		.num_field label {
-			margin: 2px;
-		}
-		.num_field span {
-			float: right;
-			display: block;
-		}
-		.num_field input,
-		select {
-			width: 100%;
-			padding: 10px;
-			margin: 2px 0;
-			box-sizing: border-box;
-		}
-	</style>
-	<script>
-		var chitti, chitti_span;
-		var month, month_span;
-		var paata, paata_span;
-		var chitti_ivvalsina, icchina;
-		var ivvalsina, ravalsina;
-		var toRupees;
-		function init() {
-			chitti = document.getElementById("chitti");
-			chitti_span = document.getElementById("chitti_span");
-			month = document.getElementById("month");
-			month_span = document.getElementById("month_span");
-			paata = document.getElementById("paata");
-			paata_span = document.getElementById("paata_span");
-			chitti_ivvalsina = document.getElementById("chitti_ivvalsina");
-			icchina = document.getElementById("icchina");
-			ivvalsina = document.getElementById("ivvalsina");
-			ravalsina = document.getElementById("ravalsina");
-			toRupees = Intl.NumberFormat("en-IN", { maximumFractionDigits: 2 });
-			chitti.value = "1000000";
-			month.value = "1";
-		}
-		function calc() {
-			var chitti_val = Number(chitti.value) / 10;
-			chitti_span.innerText = "Rs. " + toRupees.format(chitti_val);
-			var month_val = Number(month.value);
-			month_span.innerText = "" + month_val;
-			var paata_val = Number(paata.value);
-			paata_span.innerText = "Rs. " + toRupees.format(paata_val);
-			var tmp1 = ((chitti_val * 2) + paata_val) / (12 - month_val);
-			chitti_ivvalsina_span.innerText = "Rs. " + toRupees.format(chitti_val - tmp1);
-			var icchina_val = Number(icchina.value);
-			icchina_span.innerText = "Rs. " + toRupees.format(icchina_val);
-			var tmp2 = chitti_val - tmp1 - icchina_val;
-			ivvalsina_span.innerText = "Rs. " + toRupees.format(Math.max(0, tmp2));
-			ravalsina_span.innerText = "Rs. " + toRupees.format(Math.max(0, -tmp2));
-		}
-	</script>
-</head>
-<body onload="init()">
-	<div class="main">
-		<h2>CHITTI CALCULATOR</h2>
-		<div class="box">
-			<div class="num_field">
-				<label for="chitti">చిట్టి రకం</label>
-				<select name="" id="chitti" onchange="calc()">
-					<option value="2000000">20 లక్షల చిట్టి</option>
-                    			<option value="1500000">15 లక్షల చిట్టి</option>
-					<option value="1000000">10 లక్షల చిట్టి</option>
-					<option value="500000">5 లక్షల చిట్టి</option>
-				</select>
-			</div>
-			<div class="num_field">
-				<label for="chitti_span">చిట్టి లేపిన వ్యక్తి(లు) ఇచ్చే సొమ్ము</label>
-				<span id="chitti_span">Rs. 1,00,000</span>
-			</div>
-			<hr />
-			<div class="num_field">
-				<label for="month">నెల</label>
-				<span id="month_span">1</span>
-				<select name="" id="month" onchange="calc()">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-				</select>
-			</div>
-		</div>
-		<br />
-		<div class="box">
-			<div class="num_field">
-				<label for="paata">చిట్టి పాట</label>
-				<span id="paata_span">Rs. 0</span>
-				<input type="number" id="paata" onkeyup="calc()" />
-			</div>
-			<div class="num_field">
-				<label for="chitti_ivvalsina_span">చిట్టి లేపని వ్యక్తి(లు) ఇవ్వాల్సిన సొమ్ము</label>
-				<span id="chitti_ivvalsina_span">Rs. 81,818.18</span>
-			</div>
-			<hr />
-			<div class="num_field">
-				<label for="icchina">ఇచ్చిన సొమ్ము</label>
-				<span id="icchina_span">Rs. 0</span>
-				<input type="number" id="icchina" onkeyup="calc()" />
-			</div>
-			<div class="num_field">
-				<label for="ivvalsina">ఇవ్వాల్సిన సొమ్ము</label>
-				<span id="ivvalsina_span">Rs. 81,818.18</span>
-			</div>
-			<div class="num_field">
-				<label for="ravalsina">రావాల్సిన సొమ్ము</label>
-				<span id="ravalsina_span">Rs. 0</span>
-			</div>
-		</div>
-	</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Chitti Calculator</title>
+    <meta property="og:title" content="Chitti Calculator" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .main {
+        margin: 16px auto;
+        box-sizing: border-box;
+        min-width: 350px;
+      }
+      .main h2 {
+        text-align: center;
+      }
+      .section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+      .box {
+        margin: 16px 0;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 550px;
+        box-shadow: 0 0 5px 2px #ccc;
+        border-radius: 5px;
+        flex: 1;
+      }
+      .num_field {
+        margin: 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+        float: left;
+        position: relative;
+      }
+      .item_fl {
+        float: left;
+        width: 100%;
+        padding: 0 8px;
+        box-sizing: border-box;
+      }
+      .item_fx {
+        width: 100%;
+        padding: 0 8px;
+      }
+      .num_field label {
+        margin: 2px;
+      }
+      .num_field span {
+        float: right;
+        display: block;
+      }
+      .num_field input {
+        width: 100%;
+        padding: 10px;
+        margin: 2px 0;
+        box-sizing: border-box;
+      }
+      .num_field table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        border: 1px solid black;
+        padding: 4px;
+      }
+      .radio {
+        display: inline;
+      }
+      input[type="radio"] {
+        margin-left: 8px;
+        width: auto;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      @media (min-width: 768px) {
+        .section {
+          flex-direction: row;
+        }
+        .item_fl {
+          width: 50%;
+        }
+      }
+    </style>
+    <script>
+      var chitti_amount, chitti_amount_input, chitti_amount_span;
+      var chitti_members, chitti_members_input, chitti_members_span;
+      var chitti_frequency, chitti_frequency_input, chitti_frequency_span;
+      var member_contribution,
+        member_contribution_input,
+        member_contribution_span;
+      var chitti_number, chitti_number_input, chitti_number_span;
+      var bid_amount, bid_amount_input, bid_amount_span;
+      var selected_chitti_number_span, selected_chitti_amount_span;
+      var total_contribution_span, interest_pm_span, interest_pa_span;
+      //   var amc, ipm, ipa;
+      var chitti_list_table;
+      var bid_amount_list, contribution_amount_list;
+      var selected_chitti_number;
+      var toRupees;
+      function init() {
+        chitti_amount_input = document.getElementById("chitti_amount_input");
+        chitti_amount_span = document.getElementById("chitti_amount_span");
+        chitti_members_input = document.getElementById("chitti_members_input");
+        chitti_members_span = document.getElementById("chitti_members_span");
+        chitti_frequency_input = document.getElementById(
+          "chitti_frequency_input"
+        );
+        chitti_frequency_span = document.getElementById(
+          "chitti_frequency_span"
+        );
+        member_contribution_input = document.getElementById(
+          "member_contribution_input"
+        );
+        member_contribution_span = document.getElementById(
+          "member_contribution_span"
+        );
+
+        chitti_list_table = document.getElementById("chitti_list");
+
+        chitti_number_input = document.getElementById("chitti_number_input");
+        chitti_number_span = document.getElementById("chitti_number_span");
+        bid_amount_input = document.getElementById("bid_amount_input");
+        bid_amount_span = document.getElementById("bid_amount_span");
+
+        selected_chitti_number_span = document.getElementById(
+          "selected_chitti_number_span"
+        );
+        selected_chitti_amount_span = document.getElementById(
+          "selected_chitti_amount_span"
+        );
+        total_contribution_span = document.getElementById(
+          "total_contribution_span"
+        );
+        interest_pm_span = document.getElementById("interest_pm_span");
+        interest_pa_span = document.getElementById("interest_pa_span");
+        // selected_cycle =
+        //   document.getElementById("chitti_cycles").elements["selected_cycle"];
+
+        amc = document.getElementById("amc");
+        ipm = document.getElementById("ipm");
+        ipa = document.getElementById("ipa");
+
+        toRupees = Intl.NumberFormat("en-IN", { maximumFractionDigits: 2 });
+
+        chitti_amount_input.value = 1000000;
+        chitti_members_input.value = 12;
+        chitti_frequency_input.value = 6;
+        member_contribution_input.value = 100000;
+        chitti_number_input.value = 1;
+        bid_amount_input.value = 0;
+        selected_chitti_number = 12;
+
+        calc1();
+      }
+      function calc1() {
+        chitti_amount = Number(chitti_amount_input.value);
+        chitti_amount_span.innerText = "Rs. " + toRupees.format(chitti_amount);
+        chitti_members = Number(chitti_members_input.value);
+        chitti_members_span.innerText = "" + chitti_members;
+        chitti_frequency = Number(chitti_frequency_input.value);
+        chitti_frequency_span.innerText = "" + chitti_frequency + " months";
+        member_contribution = Number(member_contribution_input.value);
+        member_contribution_span.innerText =
+          "Rs. " + toRupees.format(member_contribution);
+
+        bid_amount_list = [];
+        contribution_amount_list = [];
+        for (var i = 0; i < chitti_members; i++) {
+          bid_amount_list.push(0);
+          contribution_amount_list.push(0);
+        }
+
+        chitti_list_table.innerHTML = "";
+        for (var i = 0; i < chitti_members; i++) {
+          var tr = document.createElement("tr");
+          var cell1 = document.createElement("td");
+          var radio = document.createElement("input");
+          radio.type = "radio";
+          radio.name = "selected_chitti";
+          radio.value = i + 1;
+          var label = document.createElement("label");
+          label.appendChild(radio);
+          label.innerHTML += " " + (i + 1);
+          cell1.appendChild(label);
+          var cell2 = document.createElement("td");
+          cell2.textContent = "Rs. " + toRupees.format(bid_amount_list[i]);
+          var cell3 = document.createElement("td");
+          cell3.textContent =
+            "Rs. " + toRupees.format(contribution_amount_list[i]);
+          tr.appendChild(cell1);
+          tr.appendChild(cell2);
+          tr.appendChild(cell3);
+          chitti_list_table.appendChild(tr);
+        }
+
+        document
+          .querySelectorAll(`input[name="selected_chitti"]`)
+          .forEach((r) => {
+            r.onclick = calc2;
+          });
+
+        var selected_chitti_radio = document.querySelector(
+          `input[name="selected_chitti"][value="${selected_chitti_number}"]`
+        );
+
+        if (selected_chitti_radio) {
+          selected_chitti_radio.checked = true;
+        }
+
+        calcd();
+      }
+      function calcd() {
+        for (var i = 1; i <= chitti_members; i++) {
+          var fixed_amount = i * member_contribution;
+          var remain_amount = chitti_amount - fixed_amount;
+          var remain_members = chitti_members - i;
+          var disburse_amount = fixed_amount - member_contribution;
+          if (remain_amount >= 0) {
+            disburse_amount = chitti_amount - member_contribution;
+          }
+          if (i > selected_chitti_number) {
+            contribution_amount_list[i - 1] = member_contribution;
+          } else if (i < selected_chitti_number) {
+            contribution_amount_list[i - 1] =
+              (remain_amount - bid_amount_list[i - 1]) / remain_members;
+          } else {
+            if (remain_members > 0) {
+              contribution_amount_list[i - 1] = -(
+                disburse_amount - bid_amount_list[i - 1]
+              );
+            } else {
+              contribution_amount_list[i - 1] = -disburse_amount;
+            }
+          }
+        }
+        var tr = chitti_list_table.children;
+        for (var i = 0; i < tr.length; i++) {
+          td = tr[i].children;
+          td[1].textContent = "Rs. " + toRupees.format(bid_amount_list[i]);
+          td[2].textContent =
+            "Rs. " + toRupees.format(contribution_amount_list[i]);
+        }
+
+        selected_chitti_number_span.innerText = selected_chitti_number;
+        selected_chitti_amount_span.innerText =
+          "Rs. " +
+          toRupees.format(
+            -contribution_amount_list[selected_chitti_number - 1]
+          );
+
+        var total_contribution = 0;
+        for (var i = 1; i <= chitti_members; i++) {
+          if (i != selected_chitti_number) {
+            total_contribution += contribution_amount_list[i - 1];
+          }
+        }
+        total_contribution_span.innerText =
+          "Rs. " + toRupees.format(total_contribution);
+        const ib = calculateInterestBank();
+        interest_bank_span.innerText = toRupees.format(ib) + "% pa";
+        const ipm = calculateInterestLocal();
+        interest_pm_span.innerText = "Rs. " + toRupees.format(ipm);
+        interest_pa_span.innerText = "Rs. " + toRupees.format(ipm * 12);
+      }
+      function calc2() {
+        selected_chitti_number = document.querySelector(
+          `input[name="selected_chitti"]:checked`
+        ).value;
+        chitti_number = Number(chitti_number_input.value);
+        chitti_number_span.innerText = "" + chitti_number;
+        bid_amount = Number(bid_amount_input.value);
+        bid_amount_span.innerText = "Rs. " + toRupees.format(bid_amount);
+        bid_amount_list[chitti_number - 1] = bid_amount;
+        calcd();
+      }
+      function calculateInterestBank() {
+        let r = 1e-2; // Starting with a 1% monthly interest rate
+        const tolerance = 2; // Tolerance level for convergence
+        const maxIterations = 20; // Maximum number of iterations allowed
+        // Iterative Newton-Raphson method to solve for r
+        for (let iter = 0; iter < maxIterations; iter++) {
+          let sum = 0;
+          let der = 0;
+          for (let i = 1; i <= chitti_members; i++) {
+            let p = (12 - i) * chitti_frequency;
+            let ml = Math.pow(1 + r, p - 1);
+            let m = ml * (1 + r);
+            sum += contribution_amount_list[i - 1] * m;
+            der += contribution_amount_list[i - 1] * p * ml;
+          }
+          if (Math.abs(sum) < tolerance) {
+            return r * 12 * 100;
+          }
+          const delta = sum / der;
+          r -= delta;
+        }
+        return NaN;
+      }
+      function calculateInterestLocal() {
+        function getSum(r) {
+          let sum = 0;
+          for (let i = 1; i <= chitti_members; i++) {
+            sum +=
+              contribution_amount_list[i - 1] *
+              (1 + r * (12 - i) * chitti_frequency);
+          }
+          return sum;
+        }
+        let a = -100;
+        let b = 100;
+        let fa = getSum(a);
+        let fb = getSum(b);
+        for (let iter = 0; iter < 1000; iter++) {
+          const r = (a + b) / 2;
+          const fr = getSum(r);
+          if (Math.abs(fr) < 2) {
+            return r * 100;
+          }
+          if (fr * fa > 0) {
+            a = r;
+            fa = fr;
+          } else {
+            b = r;
+            fb = fr;
+          }
+        }
+        return NaN;
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <div class="main">
+      <h2>CHITTI CALCULATOR</h2>
+      <div class="section">
+        <div class="box">
+          <!-- <h3>CHITTI CALCULATOR</h3> -->
+          <div class="num_field item_fl">
+            <label for="chitti_amount_input">chitti_amount</label>
+            <span id="chitti_amount_span">Rs. 1000000</span>
+            <input type="number" id="chitti_amount_input" oninput="calc1()" />
+          </div>
+          <div class="num_field item_fl">
+            <label for="chitti_members_input">chitti_members</label>
+            <span id="chitti_members_span">12</span>
+            <input type="number" id="chitti_members_input" onblur="calc1()" />
+          </div>
+          <div class="num_field item_fl">
+            <label for="chitti_frequency_input">frequency (in months)</label>
+            <span id="chitti_frequency_span">1 month</span>
+            <input
+              type="number"
+              id="chitti_frequency_input"
+              oninput="calc1()"
+            />
+          </div>
+          <div class="num_field item_fl">
+            <label for="member_contribution_input">member_contribution</label>
+            <span id="member_contribution_span">Rs. 100000</span>
+            <input
+              type="number"
+              id="member_contribution_input"
+              oninput="calc1()"
+            />
+          </div>
+          <div class="num_field">
+            <div class="item_fx bold">set a chitti bid amount</div>
+            <div class="item_fl">
+              <label for="chitti_number_input">chitti_number</label>
+              <span id="chitti_number_span">1</span>
+              <input type="number" id="chitti_number_input" onblur="calc2()" />
+            </div>
+            <div class="item_fl">
+              <label for="bid_amount_input">bid_amount</label>
+              <span id="bid_amount_span">Rs. 0</span>
+              <input type="number" id="bid_amount_input" oninput="calc2()" />
+            </div>
+          </div>
+          <div class="num_field item_fx">
+            <div class="bold">select a chitti from below table</div>
+            <div>
+              <label for="selected_chitti_number_span">chitti_number</label>
+              <span id="selected_chitti_number_span">12</span>
+            </div>
+            <div>
+              <label for="selected_chitti_amount_span">chitti_amount</label>
+              <span id="selected_chitti_amount_span">Rs. 0.00</span>
+            </div>
+            <div>
+              <label for="total_contribution_span">total_contribution</label>
+              <span id="total_contribution_span">Rs. 0.00</span>
+            </div>
+            <div>
+              <label for="interest_pm_span">interest (per month)</label>
+              <span id="interest_pm_span">Rs. 0.00</span>
+            </div>
+            <div>
+              <label for="interest_pa_span">interest (per annum)</label>
+              <span id="interest_pa_span">Rs. 0.00</span>
+            </div>
+            <div>
+              <label for="interest_bank_span">interest (bank)</label>
+              <span id="interest_bank_span">0% pa</span>
+            </div>
+          </div>
+          <div class="num_field item_fx">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chitti No.</th>
+                  <th>Bid Amount</th>
+                  <th>Contribution</th>
+                </tr>
+              </thead>
+              <tbody id="chitti_list"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
